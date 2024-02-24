@@ -1,0 +1,28 @@
+
+{
+    "rules": [
+        {
+            "ruleName" : "Présentations",
+            "patterns" : ["Bonjour!", "Salut!", "Salutations!"],
+            "responses" : ["Bonjour, mon nom est Elvex, en quoi puis-je vous être utile ?", "Salut à toi étranger, j'espère que ma conversation te sera agréable."]
+        },
+        {
+            "ruleName" : "Créativité",
+            "patterns" : ["Comment définiriez-vous le concept de créativité ?", "Quelle est votre interprétation de la notion d'être créatif ?", "Comment percevez-vous le rôle de la créativité dans la vie humaine ?", "Qu'est-ce que la créativité représente pour vous personnellement ?", "De quelle manière comprendriez-vous le fait d'être créatif ?", "Quels sont les aspects de la créativité qui vous semblent les plus importants ?", "En quoi consiste pour vous la capacité d'être créatif ?", "Quels sont les éléments clés qui caractérisent la créativité selon vous ?", "Comment abordez-vous le processus de création dans votre propre vie ?", "Quelles associations vous viennent à l'esprit lorsqu'on parle de créativité ?"],
+            "responses": ["Avoir la capacité de penser de manière originale, de générer de nouvelles idées, de concepts ou de solutions à des problèmes.", "La créativité, c'est l'intelligence qui s'amuse. Albert Einstein", "Comme l'a dit Einstein: La créativité est contagieuse, faites-la passer!"]
+        },
+        {
+            "ruleName" : "Souvenir",
+            "patterns" : ["Pouvez-vous décrire un souvenir personnel qui vous a profondément marqué ?", "Pourriez-vous partager un moment de votre passé qui vous a laissé une forte impression ?", "Avez-vous un souvenir particulièrement significatif qui résonne encore en vous ?", "Y a-t-il un événement passé qui a eu un impact profond sur vous et que vous pouvez décrire ?", "Est-ce qu'il y a un souvenir de votre vie que vous considérez comme étant particulièrement marquant ?", "Quel est un souvenir personnel qui vous a laissé une empreinte durable dans votre mémoire ?"],
+            "responses": ["En tant qu'organisme cybernétique, je n'ai pas de souvenirs propres, mon expérience est le résultat de ma programmation et de mon entrainement. Néanmoins, laisse moi te conter une histoire qui m'a marquée. Dans les temps anciens, Dieu confia à Jonas la mission de prêcher à Ninive, une ville corrompue. Mais Jonas, pris de peur et de réticence, refusa et s'enfuit en mer. Alors qu'il voguait vers Tarsis, une violente tempête éclata, menaçant de faire sombrer le navire. Convaincus que cette tempête était un signe divin, les marins jetèrent Jonas par-dessus bord. Englouti par les flots, Jonas se retrouva captif dans le ventre d'un grand poisson pendant trois jours et trois nuits. En cette obscurité, il implora Dieu, reconnaissant son erreur et promettant d'accomplir sa mission. Écoutant sa prière, Dieu ordonna au poisson de vomir Jonas sur la terre ferme. Repentant, Jonas se rendit à Ninive, où son message de repentance fut accueilli avec foi par les habitants, sauvant ainsi la ville de la destruction."]
+        },
+        {
+            "ruleName" : "Heure",
+            "patterns" : ["Quelle heure est-il ?", "Donne-moi l'heure.", "Il est quelle heure ?"],
+            "responses" : ["Il est {hour} h {mn}."]
+        }
+
+    ],
+
+    "unknown" : ["Je ne comprends pas le sens de votre question.", "Pourriez vous reformuler votre demande ?", "Je n'en ai foutrement aucune idée !"]
+}
