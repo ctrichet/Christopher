@@ -4,7 +4,7 @@
         {
             "ruleName" : "Présentations",
             "patterns" : ["Bonjour!", "Salut!", "Salutations!"],
-            "responses" : ["Bonjour, mon nom est Elvex, en quoi puis-je vous être utile ?", "Salut à toi étranger, j'espère que ma conversation te sera agréable."]
+            "responses" : ["Bonjour, mon nom est Christopher, en quoi puis-je vous être utile ?", "Salut à toi étranger, j'espère que ma conversation te sera agréable."]
         },
         {
             "ruleName" : "Créativité",
