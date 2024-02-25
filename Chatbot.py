@@ -11,16 +11,19 @@ import datetime
 class Chatbot:
     ERROR_THRESHOLD = 0.7
 
-    def __init__(self, ignoreWords : list = ['?', '!'], verbose : bool = False, forceSave : bool = False):
-        self.roots = []
-        self.ruleList = []
-        self.corpus = []
-        self.ignoreWords = ignoreWords
-        self.verbose = verbose
-        self.forceSave = forceSave
-        self.stemmer = FrenchStemmer()
-        self.rules = None
-        self.model = None
+    def __init__(self, ignoreWords : list = ['?', '!'], approvalWords : list = ['y', 'o', 'yes', 'oui'], verbose : bool = False, forceSave : bool = False, learn : bool = True, update : bool = True):
+        self.roots          = []
+        self.ruleList       = []
+        self.corpus         = []
+        self.ignoreWords    = ignoreWords
+        self.approvalWords  = approvalWords
+        self.verbose        = verbose
+        self.forceSave      = forceSave
+        self.learn          = learn
+        self.update         = update
+        self.stemmer        = FrenchStemmer()
+        self.rules          = None
+        self.model          = None
 
     def readRules(self, filename : str) -> None:
         self.rules = RulesList('rules.json')
@@ -115,6 +118,39 @@ class Chatbot:
             resultList.append((self.ruleList[res[0]], res[1]))
         return resultList
 
+    def askForResponse(self, sentence : str) ->str:
+        print(self.complete(random.choice(self.rules.getQuestion())))
+        ruleName = ''
+        patterns = [sentence]
+        responses = []
+        sentence = input('> ')
+        if sentence in self.approvalWords:
+            print('Veuillez saisir le nom de la règle puis tapez sur entrée.')
+            ruleName = input('> ')
+            while not ruleName or any(ruleName == rule.getRuleName() for rule in self.rules.getRule()):
+                print('Nom invalide ou déjà utilisé, veuillez recommencer.')
+                sentence = input('> ')
+            print('Saisissez les variantes de la question de départ en retournant à la ligne entre chacune d\'entre elles. Lorsque vous avez terminé ou si vous ne souhaitez pas en ajouter, tapez "." puis entrée.')
+            sentence = input('> ')
+            while sentence != '.':
+                patterns.append(sentence)
+                sentence = input('> ')
+            print('Saisissez les réponses attendues en retournant à la ligne entre chacune d\'entre elles. Lorsque vous avez terminé, tapez "." puis entrée.')
+            sentence = input('> ')
+            while sentence != '.':
+                responses.append(sentence)
+                sentence = input('> ')
+            self.rules.addRule(ruleName, patterns, responses, self.update)
+            if self.update:
+                self.forceSave = True
+                chatbot.preprocessing()
+                chatbot.trainData()
+                return 'Règle ajoutée aux données d\'entrainement, modèle mis à jour'
+            return 'Règle ajoutée aux données d\'entrainement, modèle non à jour'
+        return 'Puis-je vous aider autrement?'
+
+
+
     def response(self, sentence : str) ->str:
         results = self.classification(sentence)
         if self.verbose:
@@ -125,6 +161,8 @@ class Chatbot:
                     if rule.getRuleName() == results[0][0]:
                         return random.choice(rule.getResponses())
                 results.pop(0)
+        if self.learn:
+            return self.askForResponse(sentence)
         return random.choice(self.rules.getUnknown())
 
     def complete(self, sentence) ->str:
@@ -134,7 +172,7 @@ class Chatbot:
         sentence = sentence.replace('{sec}', str(date.second))
         return sentence
 
-    def interact(self) -> None:
+    def interact(self, ) -> None:
         while True:
             sentence = input('> ')
             if sentence == '.':
@@ -142,7 +180,7 @@ class Chatbot:
             print(self.complete(self.response(sentence)))
 
 if __name__ == '__main__':
-    chatbot = Chatbot()
+    chatbot = Chatbot(verbose = True)
     chatbot.readRules('rules.json')
     chatbot.preprocessing()
     chatbot.trainData()

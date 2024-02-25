@@ -21,3 +21,25 @@ class RulesList:
 
     def getUnknown(self) -> list:
         return self.rules['unknown']
+
+    def getQuestion(self) -> list:
+        return self.rules['question']
+
+    def addRule(self, ruleName : str, patterns : list, responses : list, update : bool) -> None:
+        new_rule = {
+            "ruleName": ruleName,
+            "patterns": patterns,
+            "responses": responses
+        }
+        if update:
+            self.rules['rules'].append(new_rule)
+
+        try:
+            with open(self.filename, 'r+') as file:
+                file_data = json.load(file)
+                file_data['rules'].append(new_rule)
+                file.seek(0)
+                json.dump(file_data, file, indent=4)
+                print(f'Rule "{ruleName}" added successfully.')
+        except Exception as e:
+            print(f'Error while Writing to {self.filename}: {e}')
